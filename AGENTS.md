@@ -89,7 +89,8 @@ maar/
 │   └── reporter.ts       # Output formatting
 ├── maar.ts               # Main entry point
 ├── package.json
-└── tsconfig.json
+├── tsconfig.json
+└── .gitignore            # Git ignore patterns
 ```
 
 ### Import Patterns
