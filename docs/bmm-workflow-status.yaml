@@ -19,13 +19,13 @@ phases:
   implementation:
     sprint-planning: "docs/sprint-plan.md"
     stories:
-      - "docs/stories/MAAR-001.md"
-      - "docs/stories/MAAR-002.md"
-      - "docs/stories/MAAR-003.md"
-      - "docs/stories/MAAR-004.md"
-      - "docs/stories/MAAR-005.md"
-      - "docs/stories/MAAR-006.md"
-      - "docs/stories/MAAR-007.md"
-      - "docs/stories/MAAR-008.md"
+      - "docs/stories/MAAR-001.md - COMPLETE"
+      - "docs/stories/MAAR-002.md - COMPLETE"
+      - "docs/stories/MAAR-003.md - COMPLETE"
+      - "docs/stories/MAAR-004.md - COMPLETE"
+      - "docs/stories/MAAR-005.md - COMPLETE"
+      - "docs/stories/MAAR-006.md - COMPLETE"
+      - "docs/stories/MAAR-007.md - COMPLETE"
+      - "docs/stories/MAAR-008.md - COMPLETE"
 
-next_recommended: "/dev-story MAAR-001"
+next_recommended: "All stories complete! Project ready."

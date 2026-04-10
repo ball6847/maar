@@ -1,0 +1,25 @@
+{
+  "name": "maar",
+  "version": "1.0.0",
+  "description": "Mermaid ASCII Auto-Renderer - CLI tool that renders Mermaid diagrams to ASCII",
+  "type": "module",
+  "main": "maar.ts",
+  "scripts": {
+    "start": "tsx maar.ts",
+    "test": "tsx --test test/**/*.test.ts"
+  },
+  "keywords": ["mermaid", "ascii", "markdown", "cli"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mermaid-ascii": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
