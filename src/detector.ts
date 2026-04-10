@@ -25,8 +25,8 @@ export function findExistingMarker(
   lines: string[],
   startIndex: number,
 ): { lineIndex: number; mmdPath: string } | null {
-  // Search up to 25 lines back to handle multi-line ASCII art
-  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 25); i--) {
+  // Search up to 100 lines back to handle large ASCII art blocks
+  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 100); i--) {
     const match = lines[i].match(MAAR_MARKER_REGEX);
     if (match) {
       return { lineIndex: i, mmdPath: match[1] };

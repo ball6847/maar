@@ -51,8 +51,8 @@ export function injectAscii(
 }
 
 function findMarkerLine(lines: string[], startIndex: number, mmdPath: string): number {
-  // Search up to 25 lines back to handle multi-line ASCII art
-  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 25); i--) {
+  // Search up to 100 lines back to handle large ASCII art blocks
+  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 100); i--) {
     if (lines[i] === `<!-- MAAR: ${mmdPath} -->`) {
       return i;
     }
