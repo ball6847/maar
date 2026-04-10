@@ -19,13 +19,13 @@ Built with **Deno** for secure, fast, native TypeScript execution. Distributed v
 ### From JSR (Recommended)
 
 ```bash
-deno install --allow-read --allow-write -n maar jsr:@scope/maar
+deno install --allow-read --allow-write -n maar jsr:@ball6847/maar
 ```
 
 ### Run without installing
 
 ```bash
-deno run --allow-read --allow-write jsr:@scope/maar <file.md>
+deno run --allow-read --allow-write jsr:@ball6847/maar <file.md>
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ maar README.md
 maar docs/*.md
 
 # With scoped permissions (more secure)
-deno run --allow-read=./docs --allow-write=./docs jsr:@scope/maar docs/*.md
+deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 ```
 
 ## How It Works
@@ -112,7 +112,7 @@ deno task lint
 
 To publish a new version to JSR:
 
-1. Update version in `deno.json` and `jsr.json`
+1. Update version in `deno.json`
 2. Commit: `git commit -am "Bump version to v1.0.1"`
 3. Tag: `git tag v1.0.1`
 4. Push: `git push && git push --tags`

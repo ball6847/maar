@@ -88,7 +88,7 @@ jobs:
 
 To publish a new version to JSR:
 
-1. Update version in `deno.json` and `jsr.json`
+1. Update version in `deno.json`
 2. Commit: `git commit -am "Bump version to v1.0.1"`
 3. Tag: `git tag v1.0.1`
 4. Push: `git push && git push --tags`

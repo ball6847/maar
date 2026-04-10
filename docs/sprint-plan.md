@@ -312,7 +312,7 @@ TypeScript support and JSR distribution.
 **Acceptance Criteria:**
 
 - [ ] Create `deno.json` with project configuration
-- [ ] Create `jsr.json` with publishing configuration
+
 - [ ] Remove `package.json` and `package-lock.json`
 - [ ] Remove `tsconfig.json` (not needed with Deno)
 - [ ] Add `deno.lock` to `.gitignore` (or commit for reproducibility)
@@ -322,7 +322,7 @@ TypeScript support and JSR distribution.
 
 - Use `deno.json` imports for beautiful-mermaid
 - Configure tasks for start and test
-- JSR scope: `@scope/maar`
+- JSR scope: `@ball6847/maar`
 
 ---
 
@@ -422,8 +422,8 @@ adopt the tool.
 
 **Technical Notes:**
 
-- Installation: `deno install --allow-read --allow-write -n maar jsr:@scope/maar`
-- Direct run: `deno run --allow-read --allow-write jsr:@scope/maar <file.md>`
+- Installation: `deno install --allow-read --allow-write -n maar jsr:@ball6847/maar`
+- Direct run: `deno run --allow-read --allow-write jsr:@ball6847/maar <file.md>`
 - Scoped permissions: `--allow-read=./docs`
 
 ---

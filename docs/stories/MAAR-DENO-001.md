@@ -7,8 +7,7 @@ TypeScript support and JSR distribution.
 
 ## Acceptance Criteria
 
-- [ ] Create `deno.json` with project configuration
-- [ ] Create `jsr.json` with publishing configuration
+- [ ] Create `deno.json` with project configuration (includes JSR publishing config)
 - [ ] Remove `package.json` and `package-lock.json`
 - [ ] Remove `tsconfig.json` (not needed with Deno)
 - [ ] Add `deno.lock` to `.gitignore` (or commit for reproducibility)
@@ -21,9 +20,17 @@ TypeScript support and JSR distribution.
 
 ```json
 {
-  "name": "@scope/maar",
+  "name": "@ball6847/maar",
   "version": "1.0.0",
   "exports": "./maar.ts",
+  "publish": {
+    "include": [
+      "maar.ts",
+      "src/**/*.ts",
+      "README.md",
+      "LICENSE"
+    ]
+  },
   "tasks": {
     "start": "deno run --allow-read --allow-write maar.ts",
     "test": "deno test --allow-read --allow-write"
@@ -34,21 +41,12 @@ TypeScript support and JSR distribution.
 }
 ```
 
-### jsr.json structure:
-
-```json
-{
-  "name": "@scope/maar",
-  "version": "1.0.0",
-  "exports": "./maar.ts",
-  "include": ["maar.ts", "src/**/*.ts", "README.md", "LICENSE"]
-}
-```
+Note: JSR publishing configuration is included directly in `deno.json` under the `publish` key.
+No separate `jsr.json` file is needed for Deno projects.
 
 ## Definition of Done
 
-- [ ] `deno.json` created and validated
-- [ ] `jsr.json` created for publishing
+- [ ] `deno.json` created and validated (includes JSR config)
 - [ ] Old Node.js config files removed
 - [ ] `deno check maar.ts` passes
 - [ ] Team can run `deno task start` successfully

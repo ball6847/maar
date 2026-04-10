@@ -1,7 +1,15 @@
 {
-  "name": "@scope/maar",
+  "name": "@ball6847/maar",
   "version": "1.0.0",
   "exports": "./maar.ts",
+  "publish": {
+    "include": [
+      "maar.ts",
+      "src/**/*.ts",
+      "README.md",
+      "LICENSE"
+    ]
+  },
   "tasks": {
     "start": "deno run --allow-read --allow-write maar.ts",
     "test": "deno test --allow-read --allow-write --allow-run",

@@ -97,7 +97,7 @@ maar/
 ├── maar.ts               # Main entry point
 ├── deno.json             # Deno configuration
 ├── deno.lock             # Dependency lock file
-└── jsr.json              # JSR publishing config
+
 ```
 
 ### 4.2 Module Interfaces
@@ -188,13 +188,13 @@ function formatSummary(totalDiagrams: number, totalFiles: number): string;
 
 ```json
 {
-  "name": "@scope/maar",
+  "name": "@ball6847/maar",
   "version": "1.0.0",
   "exports": "./maar.ts",
   "tasks": {
     "start": "deno run --allow-read --allow-write maar.ts",
     "test": "deno test --allow-read --allow-write",
-    "install": "deno install --allow-read --allow-write -n maar jsr:@scope/maar"
+    "install": "deno install --allow-read --allow-write -n maar jsr:@ball6847/maar"
   },
   "imports": {
     "beautiful-mermaid": "npm:beautiful-mermaid@^1.1.3"
@@ -213,23 +213,7 @@ function formatSummary(totalDiagrams: number, totalFiles: number): string;
 }
 ```
 
-### 5.2 jsr.json (Publishing)
-
-```json
-{
-  "name": "@scope/maar",
-  "version": "1.0.0",
-  "exports": "./maar.ts",
-  "include": [
-    "maar.ts",
-    "src/**/*.ts",
-    "README.md",
-    "LICENSE"
-  ]
-}
-```
-
-### 5.3 Permissions Model
+### 5.2 Permissions Model
 
 | Permission | Flag            | Purpose                      |
 | ---------- | --------------- | ---------------------------- |
@@ -407,7 +391,7 @@ deno test --allow-read --allow-write
 
 ```bash
 # Install globally
-deno install --allow-read --allow-write -n maar jsr:@scope/maar
+deno install --allow-read --allow-write -n maar jsr:@ball6847/maar
 
 # Use anywhere
 maar docs/*.md
@@ -523,7 +507,7 @@ Deno.test("detectDiagramLinks finds .mmd links", () => {
 
 ## 14. Implementation Order (Deno Migration)
 
-1. **Setup** - `deno.json`, `jsr.json`, remove `package.json`, `tsconfig.json`
+1. **Setup** - `deno.json`, remove `package.json`, `tsconfig.json`
 2. **Core Migration** - Update imports to use `npm:` specifiers
 3. **Deno APIs** - Replace Node.js APIs (`fs`, `path`) with Deno equivalents
 4. **Renderer** - Update to use `npm:beautiful-mermaid` import

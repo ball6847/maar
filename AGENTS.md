@@ -135,7 +135,7 @@ maar/
 │   └── integration.test.ts # Integration tests
 ├── maar.ts               # Main entry point
 ├── deno.json             # Deno configuration
-├── jsr.json              # JSR publishing config
+
 ├── LICENSE               # MIT License
 └── .gitignore            # Git ignore patterns
 ```

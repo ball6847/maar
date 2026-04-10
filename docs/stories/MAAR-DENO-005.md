@@ -25,11 +25,11 @@ adopt the tool.
 
 ### From JSR (Recommended)
 
-\`\`\`bash deno install --allow-read --allow-write -n maar jsr:@scope/maar \`\`\`
+\`\`\`bash deno install --allow-read --allow-write -n maar jsr:@ball6847/maar \`\`\`
 
 ### Run without installing
 
-\`\`\`bash deno run --allow-read --allow-write jsr:@scope/maar <file.md> \`\`\`
+\`\`\`bash deno run --allow-read --allow-write jsr:@ball6847/maar <file.md> \`\`\`
 ```
 
 #### Usage
@@ -49,7 +49,7 @@ maar docs/*.md
 
 # With scoped permissions (more secure)
 
-deno run --allow-read=./docs --allow-write=./docs jsr:@scope/maar docs/*.md \`\`\`
+deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md \`\`\`
 ```
 
 #### Development
