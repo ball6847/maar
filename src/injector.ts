@@ -1,17 +1,15 @@
-import { writeFile, rename } from 'fs/promises';
-import { randomBytes } from 'crypto';
-import { DiagramLink } from './types.js';
+import { DiagramLink } from "./types.ts";
 
 export function createInjectionBlock(
   mmdPath: string,
-  ascii: string
+  ascii: string,
 ): string[] {
   return [
     `<!-- MAAR: ${mmdPath} -->`,
-    '```',
+    "```",
     ascii,
-    '```',
-    ''
+    "```",
+    "",
   ];
 }
 
@@ -19,7 +17,7 @@ export function injectAscii(
   lines: string[],
   link: DiagramLink,
   ascii: string,
-  hasExistingMarker: boolean
+  hasExistingMarker: boolean,
 ): string[] {
   const block = createInjectionBlock(link.mmdPath, ascii);
   const result = [...lines];
@@ -30,7 +28,7 @@ export function injectAscii(
       // Find the end of the code block (the SECOND ``` after the marker)
       // First, skip past the opening ```
       const codeBlockStart = markerLine + 1;
-      if (result[codeBlockStart]?.trim() !== '```') {
+      if (result[codeBlockStart]?.trim() !== "```") {
         // Malformed - no opening ```, just insert new block
         result.splice(link.lineIndex, 0, ...block);
         return result;
@@ -39,7 +37,7 @@ export function injectAscii(
       const codeBlockEnd = findCodeBlockEnd(result, codeBlockStart + 1);
       // Also consume the empty line after the code block if present
       let deleteCount = codeBlockEnd - markerLine + 1;
-      if (result[codeBlockEnd + 1] === '') {
+      if (result[codeBlockEnd + 1] === "") {
         deleteCount++;
       }
       result.splice(markerLine, deleteCount, ...block);
@@ -64,7 +62,7 @@ function findMarkerLine(lines: string[], startIndex: number, mmdPath: string): n
 
 function findCodeBlockEnd(lines: string[], startIndex: number): number {
   for (let i = startIndex; i < lines.length; i++) {
-    if (lines[i].trim() === '```') {
+    if (lines[i].trim() === "```") {
       return i;
     }
   }
@@ -73,9 +71,9 @@ function findCodeBlockEnd(lines: string[], startIndex: number): number {
 
 export async function writeFileAtomic(
   filePath: string,
-  content: string
+  content: string,
 ): Promise<void> {
-  const tmpPath = `${filePath}.tmp.${randomBytes(4).toString('hex')}`;
-  await writeFile(tmpPath, content, 'utf-8');
-  await rename(tmpPath, filePath);
+  const tmpPath = `${filePath}.tmp.${crypto.randomUUID()}`;
+  await Deno.writeTextFile(tmpPath, content);
+  await Deno.rename(tmpPath, filePath);
 }

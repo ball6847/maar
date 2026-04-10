@@ -1,40 +1,45 @@
-import { resolve } from 'path';
-import { existsSync, readFileSync } from 'fs';
-import { renderMermaidASCII } from 'beautiful-mermaid';
-import { RenderResult } from './types.js';
+import { RenderResult } from "./types.ts";
 
-export function renderToAscii(
+export async function renderToAscii(
   mmdPath: string,
-  markdownDir: string
-): RenderResult {
-  const absolutePath = resolve(markdownDir, mmdPath);
+  markdownDir: string,
+): Promise<RenderResult> {
+  // Resolve path using URL API
+  const absolutePath = markdownDir === "." ? mmdPath : `${markdownDir}/${mmdPath}`;
 
-  if (!existsSync(absolutePath)) {
+  // Check existence with Deno
+  try {
+    await Deno.stat(absolutePath);
+  } catch {
     return {
       success: false,
-      error: 'file not found'
+      error: "file not found",
     };
   }
 
   try {
-    const content = readFileSync(absolutePath, 'utf-8');
+    const content = await Deno.readTextFile(absolutePath);
+
+    // Import beautiful-mermaid via npm specifier
+    const { renderMermaidASCII } = await import("npm:beautiful-mermaid@^1.1.3");
+
     const ascii = renderMermaidASCII(content);
-    
+
     if (!ascii.trim()) {
       return {
         success: false,
-        error: 'empty output'
+        error: "empty output",
       };
     }
-    
+
     return {
       success: true,
-      ascii: ascii.trimEnd()
+      ascii: ascii.trimEnd(),
     };
   } catch (err) {
     return {
       success: false,
-      error: err instanceof Error ? err.message : 'unknown error'
+      error: err instanceof Error ? err.message : "unknown error",
     };
   }
 }

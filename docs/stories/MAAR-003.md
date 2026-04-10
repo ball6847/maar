@@ -1,13 +1,14 @@
 # Story MAAR-003: Mermaid Link Detection
 
-**Points:** 2  
-**Priority:** Must Have  
-**Status:** Not Started  
+**Points:** 2\
+**Priority:** Must Have\
+**Status:** Not Started\
 **Depends On:** MAAR-001
 
 ## Story
 
-As a user, I want the tool to detect `.mmd` links in markdown files so that it knows which diagrams to render.
+As a user, I want the tool to detect `.mmd` links in markdown files so that it knows which diagrams
+to render.
 
 ## Acceptance Criteria
 
@@ -28,14 +29,14 @@ As a user, I want the tool to detect `.mmd` links in markdown files so that it k
 
 ```typescript
 // src/detector.ts
-import { DiagramLink } from './types.js';
+import { DiagramLink } from "./types.js";
 
 const MMD_LINK_REGEX = /!?\[([^\]]*)\]\(([^)]+\.mmd)\)/i;
 const MAAR_MARKER_REGEX = /<!--\s*MAAR:\s*(.+?)\s*-->/i;
 
 export function detectDiagramLinks(lines: string[]): DiagramLink[] {
   const links: DiagramLink[] = [];
-  
+
   for (let i = 0; i < lines.length; i++) {
     const match = lines[i].match(MMD_LINK_REGEX);
     if (match) {
@@ -43,17 +44,17 @@ export function detectDiagramLinks(lines: string[]): DiagramLink[] {
         lineIndex: i,
         mmdPath: match[2],
         originalLine: lines[i],
-        linkText: match[1]
+        linkText: match[1],
       });
     }
   }
-  
+
   return links;
 }
 
 export function findExistingMarker(
-  lines: string[], 
-  startIndex: number
+  lines: string[],
+  startIndex: number,
 ): { lineIndex: number; mmdPath: string } | null {
   // Check up to 5 lines before the link
   for (let i = startIndex - 1; i >= Math.max(0, startIndex - 5); i--) {

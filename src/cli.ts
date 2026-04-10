@@ -1,23 +1,15 @@
-import { existsSync, accessSync, constants } from 'fs';
-
-export function parseArgs(argv: string[]): string[] {
-  const args = argv.slice(2);
-
+export async function parseArgs(args: string[]): Promise<string[]> {
   if (args.length === 0) {
-    console.error('Usage: npx tsx maar.ts <file1.md> [file2.md ...]');
-    process.exit(1);
+    console.error("Usage: deno run --allow-read --allow-write maar.ts <file1.md> [file2.md ...]");
+    Deno.exit(1);
   }
 
   for (const file of args) {
-    if (!existsSync(file)) {
-      console.error(`✗ ${file} - file not found`);
-      process.exit(1);
-    }
     try {
-      accessSync(file, constants.R_OK | constants.W_OK);
+      await Deno.stat(file);
     } catch {
-      console.error(`✗ ${file} - permission denied`);
-      process.exit(1);
+      console.error(`✗ ${file} - file not found`);
+      Deno.exit(1);
     }
   }
 

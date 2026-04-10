@@ -12,8 +12,8 @@ export interface RenderResult {
 }
 
 export type DiagramResult =
-  | { status: 'success'; path: string }
-  | { status: 'error'; path: string; message: string };
+  | { status: "success"; path: string }
+  | { status: "error"; path: string; message: string };
 
 export interface FileResult {
   filePath: string;

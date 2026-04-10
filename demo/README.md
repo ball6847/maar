@@ -3,6 +3,7 @@
 This is a sample project with a Mermaid diagram.
 
 <!-- MAAR: diagram.mmd -->
+
 ```
 ┌──────────────────┐     ┌──────────┐
 │                  │     │          │

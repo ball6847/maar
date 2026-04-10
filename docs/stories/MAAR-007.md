@@ -1,13 +1,14 @@
 # Story MAAR-007: Integration & Main Loop
 
-**Points:** 2  
-**Priority:** Must Have  
-**Status:** Not Started  
+**Points:** 2\
+**Priority:** Must Have\
+**Status:** Not Started\
 **Depends On:** MAAR-002, MAAR-003, MAAR-004, MAAR-005, MAAR-006
 
 ## Story
 
-As a user, I want a complete working CLI tool that orchestrates all components so that I can use a single command to process files.
+As a user, I want a complete working CLI tool that orchestrates all components so that I can use a
+single command to process files.
 
 ## Acceptance Criteria
 

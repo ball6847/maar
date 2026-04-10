@@ -1,7 +1,8 @@
 Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 
-1. Overview
-   TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art using beautiful-mermaid and injects output into Markdown files as code blocks. Designed for LLM agent workflows to eliminate complex ASCII manipulation from agent tool calling.
+1. Overview TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art
+   using beautiful-mermaid and injects output into Markdown files as code blocks. Designed for LLM
+   agent workflows to eliminate complex ASCII manipulation from agent tool calling.
 
 2. Goals
 
@@ -135,13 +136,10 @@ interface FileResult {
 
 5. Error Handling
 
-Scenario Output Exit
-Markdown not found `✗ <file> - file not found` 1
-`.mmd` not found `✗ <file>: <diagram> - file not found` 1
-Render error `✗ <file>: <diagram> - <error>` 1
-Permission denied `✗ <file> - permission denied` 1
-No diagrams `⚠ <file>: 0 diagrams` 0
-Success `✓ <file>: <n> diagrams` 0
+Scenario Output Exit Markdown not found `✗ <file> - file not found` 1 `.mmd` not found
+`✗ <file>: <diagram> - file not found` 1 Render error `✗ <file>: <diagram> - <error>` 1 Permission
+denied `✗ <file> - permission denied` 1 No diagrams `⚠ <file>: 0 diagrams` 0 Success
+`✓ <file>: <n> diagrams` 0
 
 7. CLI Specification
 
@@ -167,12 +165,9 @@ Output:
 <!-- MAAR: diagrams/flow.mmd -->
 ```
 
-┌─────┐
-│Start│
-└─────┘
+┌─────┐ │Start│ └─────┘
 
 ```
-
 [View Flow](diagrams/flow.mmd)
 ```
 

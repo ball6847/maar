@@ -7,15 +7,15 @@ phases:
     product-brief: "optional"
     brainstorm: "optional"
     research: "optional"
-  
+
   planning:
     prd: "docs/PRD.md"
     tech-spec: "docs/tech-spec.md"
     ux-design: "optional"
-  
+
   solutioning:
     architecture: "optional"
-  
+
   implementation:
     sprint-planning: "docs/sprint-plan.md"
     stories:
@@ -27,5 +27,11 @@ phases:
       - "docs/stories/MAAR-006.md - COMPLETE"
       - "docs/stories/MAAR-007.md - COMPLETE"
       - "docs/stories/MAAR-008.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-001.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-002.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-003.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-004.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-005.md - COMPLETE"
+      - "docs/stories/MAAR-DENO-006.md - COMPLETE"
 
-next_recommended: "All stories complete! Project ready."
+next_recommended: "Deno Migration COMPLETE! Commit changes and push to GitHub."

@@ -1,0 +1,27 @@
+{
+  "name": "@scope/maar",
+  "version": "1.0.0",
+  "exports": "./maar.ts",
+  "tasks": {
+    "start": "deno run --allow-read --allow-write maar.ts",
+    "test": "deno test --allow-read --allow-write --allow-run",
+    "check": "deno check maar.ts",
+    "fmt": "deno fmt",
+    "lint": "deno lint",
+    "publish:dry": "deno publish --dry-run"
+  },
+  "imports": {
+    "beautiful-mermaid": "npm:beautiful-mermaid@^1.1.3"
+  },
+  "compilerOptions": {
+    "strict": true
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2
+  },
+  "lint": {
+    "include": ["src/", "maar.ts", "test/"]
+  }
+}

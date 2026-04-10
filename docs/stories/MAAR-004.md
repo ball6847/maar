@@ -1,13 +1,14 @@
 # Story MAAR-004: ASCII Rendering
 
-**Points:** 2  
-**Priority:** Must Have  
-**Status:** Not Started  
+**Points:** 2\
+**Priority:** Must Have\
+**Status:** Not Started\
 **Depends On:** MAAR-001
 
 ## Story
 
-As a user, I want the tool to render Mermaid diagrams to ASCII using pretty-mermaid so that I get the ASCII representation.
+As a user, I want the tool to render Mermaid diagrams to ASCII using pretty-mermaid so that I get
+the ASCII representation.
 
 ## Acceptance Criteria
 
@@ -28,55 +29,55 @@ As a user, I want the tool to render Mermaid diagrams to ASCII using pretty-merm
 
 ```typescript
 // src/renderer.ts
-import { spawn } from 'child_process';
-import { resolve, dirname } from 'path';
-import { existsSync } from 'fs';
-import { RenderResult } from './types.js';
+import { spawn } from "child_process";
+import { dirname, resolve } from "path";
+import { existsSync } from "fs";
+import { RenderResult } from "./types.js";
 
 export async function renderToAscii(
   mmdPath: string,
-  markdownDir: string
+  markdownDir: string,
 ): Promise<RenderResult> {
   const absolutePath = resolve(markdownDir, mmdPath);
-  
+
   if (!existsSync(absolutePath)) {
     return {
       success: false,
-      error: 'file not found'
+      error: "file not found",
     };
   }
 
   return new Promise((resolve) => {
-    const proc = spawn('npx', ['pretty-mermaid', absolutePath], {
-      stdio: ['ignore', 'pipe', 'pipe']
+    const proc = spawn("npx", ["pretty-mermaid", absolutePath], {
+      stdio: ["ignore", "pipe", "pipe"],
     });
-    
-    let stdout = '';
-    let stderr = '';
-    
-    proc.stdout.on('data', (data) => {
+
+    let stdout = "";
+    let stderr = "";
+
+    proc.stdout.on("data", (data) => {
       stdout += data.toString();
     });
-    
-    proc.stderr.on('data', (data) => {
+
+    proc.stderr.on("data", (data) => {
       stderr += data.toString();
     });
-    
-    proc.on('close', (code) => {
+
+    proc.on("close", (code) => {
       if (code !== 0) {
         resolve({
           success: false,
-          error: stderr.trim() || `exited with code ${code}`
+          error: stderr.trim() || `exited with code ${code}`,
         });
       } else if (!stdout.trim()) {
         resolve({
           success: false,
-          error: 'empty output'
+          error: "empty output",
         });
       } else {
         resolve({
           success: true,
-          ascii: stdout.trimEnd()
+          ascii: stdout.trimEnd(),
         });
       }
     });

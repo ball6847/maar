@@ -1,4 +1,4 @@
-import { DiagramLink } from './types.js';
+import { DiagramLink } from "./types.ts";
 
 const MMD_LINK_REGEX = /!?\[([^\]]*)\]\(([^)]+\.mmd)\)/i;
 const MAAR_MARKER_REGEX = /<!--\s*MAAR:\s*(.+?)\s*-->/i;
@@ -13,7 +13,7 @@ export function detectDiagramLinks(lines: string[]): DiagramLink[] {
         lineIndex: i,
         mmdPath: match[2],
         originalLine: lines[i],
-        linkText: match[1]
+        linkText: match[1],
       });
     }
   }
@@ -23,7 +23,7 @@ export function detectDiagramLinks(lines: string[]): DiagramLink[] {
 
 export function findExistingMarker(
   lines: string[],
-  startIndex: number
+  startIndex: number,
 ): { lineIndex: number; mmdPath: string } | null {
   // Search up to 25 lines back to handle multi-line ASCII art
   for (let i = startIndex - 1; i >= Math.max(0, startIndex - 25); i--) {

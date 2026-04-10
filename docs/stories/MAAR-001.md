@@ -1,12 +1,13 @@
 # Story MAAR-001: Project Setup
 
-**Points:** 1  
-**Priority:** Must Have  
+**Points:** 1\
+**Priority:** Must Have\
 **Status:** Not Started
 
 ## Story
 
-As a developer, I want a properly configured TypeScript project so that I can start implementing the CLI tool.
+As a developer, I want a properly configured TypeScript project so that I can start implementing the
+CLI tool.
 
 ## Acceptance Criteria
 
@@ -42,9 +43,9 @@ export interface RenderResult {
   error?: string;
 }
 
-export type DiagramResult = 
-  | { status: 'success'; path: string }
-  | { status: 'error'; path: string; message: string };
+export type DiagramResult =
+  | { status: "success"; path: string }
+  | { status: "error"; path: string; message: string };
 
 export interface FileResult {
   filePath: string;

@@ -1,16 +1,12 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert';
-import { writeFile, unlink } from 'fs/promises';
-import { parseArgs } from '../src/cli.js';
+import { assertEquals } from "jsr:@std/assert";
+import { parseArgs } from "../src/cli.ts";
 
-describe('parseArgs', () => {
-  it('returns file paths from argv', async () => {
-    // Create a temp file that exists
-    await writeFile('test/temp/argtest.md', '# Test');
-    const argv = ['node', 'maar.ts', 'test/temp/argtest.md'];
-    const result = parseArgs(argv);
+Deno.test("parseArgs returns file paths from argv", async () => {
+  // Create a temp file that exists
+  await Deno.writeTextFile("test/temp/argtest.md", "# Test");
+  const args = ["test/temp/argtest.md"];
+  const result = await parseArgs(args);
 
-    assert.deepStrictEqual(result, ['test/temp/argtest.md']);
-    await unlink('test/temp/argtest.md');
-  });
+  assertEquals(result, ["test/temp/argtest.md"]);
+  await Deno.remove("test/temp/argtest.md");
 });

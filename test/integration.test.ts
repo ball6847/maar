@@ -1,104 +1,121 @@
-import { describe, it, before } from 'node:test';
-import assert from 'node:assert';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import { readFile, writeFile, mkdir, rm } from 'fs/promises';
-import { existsSync } from 'fs';
-import { join } from 'path';
+import { assertEquals, assertNotEquals } from "jsr:@std/assert";
 
-const execAsync = promisify(exec);
+const testDir = "test/temp";
 
-describe('Integration Tests', () => {
-  const testDir = 'test/temp';
+// Ensure test directory exists
+try {
+  await Deno.mkdir(testDir, { recursive: true });
+} catch { /* ignore */ }
 
-  before(async () => {
-    if (!existsSync(testDir)) {
-      await mkdir(testDir, { recursive: true });
-    }
+Deno.test("processes single file with single diagram", async () => {
+  const testFile = `${testDir}/test-simple.md`;
+  const mmdFile = `${testDir}/diagram.mmd`;
+
+  await Deno.writeTextFile(mmdFile, "flowchart TD\n    A[Start] --> B[End]\n");
+  await Deno.writeTextFile(testFile, "# Test\n\n[View](diagram.mmd)\n");
+
+  const command = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", testFile],
+    stdout: "piped",
+    stderr: "piped",
   });
 
-  it('processes single file with single diagram', async () => {
-    const testFile = join(testDir, 'test-simple.md');
-    const mmdFile = join(testDir, 'diagram.mmd');
+  const { stdout } = await command.output();
+  const output = new TextDecoder().decode(stdout);
 
-    await writeFile(mmdFile, 'flowchart TD\n    A[Start] --> B[End]\n');
-    await writeFile(testFile, '# Test\n\n[View](diagram.mmd)\n');
+  assertEquals(output.includes("✓"), true);
+  assertEquals(output.includes("1 diagram"), true);
 
-    const { stdout } = await execAsync(`npx tsx maar.ts ${testFile}`);
+  const content = await Deno.readTextFile(testFile);
+  assertEquals(content.includes("<!-- MAAR: diagram.mmd -->"), true);
+  assertEquals(content.includes("```"), true);
+});
 
-    assert(stdout.includes('✓'), 'Should show success');
-    assert(stdout.includes('1 diagram'), 'Should show diagram count');
+Deno.test("processes file with no diagrams", async () => {
+  const testFile = `${testDir}/test-empty.md`;
+  await Deno.writeTextFile(testFile, "# Test\n\nNo diagrams here.\n");
 
-    const content = await readFile(testFile, 'utf-8');
-    assert(content.includes('<!-- MAAR: diagram.mmd -->'), 'Should have MAAR marker');
-    assert(content.includes('```'), 'Should have code block');
+  const command = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", testFile],
+    stdout: "piped",
+    stderr: "piped",
   });
 
-  it('processes file with no diagrams', async () => {
-    const testFile = join(testDir, 'test-empty.md');
-    await writeFile(testFile, '# Test\n\nNo diagrams here.\n');
+  const { stdout } = await command.output();
+  const output = new TextDecoder().decode(stdout);
 
-    const { stdout } = await execAsync(`npx tsx maar.ts ${testFile}`);
+  assertEquals(output.includes("⚠"), true);
+  assertEquals(output.includes("0 diagrams"), true);
+});
 
-    assert(stdout.includes('⚠'), 'Should show warning');
-    assert(stdout.includes('0 diagrams'), 'Should show zero diagrams');
+Deno.test("exits with error for missing mmd file", async () => {
+  const testFile = `${testDir}/test-missing.md`;
+  await Deno.writeTextFile(testFile, "# Test\n\n[View](nonexistent.mmd)\n");
+
+  const command = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", testFile],
+    stdout: "piped",
+    stderr: "piped",
   });
 
-  it('exits with error for missing mmd file', async () => {
-    const testFile = join(testDir, 'test-missing.md');
-    await writeFile(testFile, '# Test\n\n[View](nonexistent.mmd)\n');
+  const { code } = await command.output();
 
-    let error: Error | null = null;
-    try {
-      await execAsync(`npx tsx maar.ts ${testFile}`);
-    } catch (e) {
-      error = e as Error;
-    }
+  assertNotEquals(code, 0);
+});
 
-    assert.notStrictEqual(error, null, 'Should throw error');
+Deno.test("exits with error for missing markdown file", async () => {
+  const command = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", "nonexistent.md"],
+    stdout: "piped",
+    stderr: "piped",
   });
 
-  it('exits with error for missing markdown file', async () => {
-    let error: Error | null = null;
-    try {
-      await execAsync(`npx tsx maar.ts nonexistent.md`);
-    } catch (e) {
-      error = e as Error;
-    }
+  const { code } = await command.output();
 
-    assert.notStrictEqual(error, null, 'Should throw error');
+  assertNotEquals(code, 0);
+});
+
+Deno.test("re-runs deterministically", async () => {
+  const testFile = `${testDir}/test-deterministic.md`;
+  const mmdFile = `${testDir}/diagram2.mmd`;
+
+  // Clean up from previous runs
+  try {
+    await Deno.remove(testFile);
+    await Deno.remove(mmdFile);
+  } catch { /* ignore */ }
+
+  await Deno.writeTextFile(mmdFile, "flowchart TD\n    A --> B\n");
+  await Deno.writeTextFile(testFile, "# Test\n\n[View](diagram2.mmd)\n");
+
+  // First run
+  const command1 = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", testFile],
+    stdout: "piped",
+    stderr: "piped",
   });
+  await command1.output();
 
-  it('re-runs deterministically', async () => {
-    const testFile = join(testDir, 'test-deterministic.md');
-    const mmdFile = join(testDir, 'diagram2.mmd');
+  const content1 = await Deno.readTextFile(testFile);
 
-    // Clean up from previous runs
-    try {
-      await rm(testFile);
-      await rm(mmdFile);
-    } catch { /* ignore */ }
+  // Verify first run has exactly one MAAR marker
+  const markerCount1 = (content1.match(/<!-- MAAR:/g) || []).length;
+  assertEquals(markerCount1, 1);
 
-    await writeFile(mmdFile, 'flowchart TD\n    A --> B\n');
-    await writeFile(testFile, '# Test\n\n[View](diagram2.mmd)\n');
-
-    // First run
-    await execAsync(`npx tsx maar.ts ${testFile}`);
-    const content1 = await readFile(testFile, 'utf-8');
-
-    // Verify first run has exactly one MAAR marker
-    const markerCount1 = (content1.match(/<!-- MAAR:/g) || []).length;
-    assert.strictEqual(markerCount1, 1, `First run should have 1 MAAR marker, found ${markerCount1}`);
-
-    // Second run
-    await execAsync(`npx tsx maar.ts ${testFile}`);
-    const content2 = await readFile(testFile, 'utf-8');
-
-    // Verify second run still has exactly one MAAR marker
-    const markerCount2 = (content2.match(/<!-- MAAR:/g) || []).length;
-    assert.strictEqual(markerCount2, 1, `Second run should have 1 MAAR marker, found ${markerCount2}`);
-
-    // Content should be identical
-    assert.strictEqual(content1, content2, 'Content should be identical after re-run');
+  // Second run
+  const command2 = new Deno.Command("deno", {
+    args: ["run", "--allow-read", "--allow-write", "maar.ts", testFile],
+    stdout: "piped",
+    stderr: "piped",
   });
+  await command2.output();
+
+  const content2 = await Deno.readTextFile(testFile);
+
+  // Verify second run still has exactly one MAAR marker
+  const markerCount2 = (content2.match(/<!-- MAAR:/g) || []).length;
+  assertEquals(markerCount2, 1);
+
+  // Content should be identical
+  assertEquals(content1, content2);
 });

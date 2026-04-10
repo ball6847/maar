@@ -1,0 +1,43 @@
+name: Publish to JSR
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write # Required for trusted publishing with JSR
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.x
+
+      - name: Check formatting
+        run: deno fmt --check
+
+      - name: Run linter
+        run: deno lint
+
+      - name: Type check
+        run: deno check maar.ts
+
+      - name: Run tests
+        run: deno test --allow-read --allow-write --allow-run
+
+      - name: Dry run publish
+        run: deno publish --dry-run
+
+      - name: Publish to JSR
+        run: deno publish
+        # Uses trusted publishing - no JSR_TOKEN secret needed!
+        # The JSR registry trusts GitHub's OIDC token

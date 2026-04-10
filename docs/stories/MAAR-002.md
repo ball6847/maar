@@ -1,13 +1,14 @@
 # Story MAAR-002: CLI Argument Parsing
 
-**Points:** 1  
-**Priority:** Must Have  
-**Status:** Not Started  
+**Points:** 1\
+**Priority:** Must Have\
+**Status:** Not Started\
 **Depends On:** MAAR-001
 
 ## Story
 
-As a user, I want to pass markdown file paths as CLI arguments so that I can specify which files to process.
+As a user, I want to pass markdown file paths as CLI arguments so that I can specify which files to
+process.
 
 ## Acceptance Criteria
 
@@ -27,16 +28,16 @@ As a user, I want to pass markdown file paths as CLI arguments so that I can spe
 
 ```typescript
 // src/cli.ts
-import { existsSync, accessSync, constants } from 'fs';
+import { accessSync, constants, existsSync } from "fs";
 
 export function parseArgs(argv: string[]): string[] {
   const args = argv.slice(2); // Remove node and script path
-  
+
   if (args.length === 0) {
-    console.error('Usage: npx tsx maar.ts <file1.md> [file2.md ...]');
+    console.error("Usage: npx tsx maar.ts <file1.md> [file2.md ...]");
     process.exit(1);
   }
-  
+
   for (const file of args) {
     if (!existsSync(file)) {
       console.error(`✗ ${file} - file not found`);
@@ -49,7 +50,7 @@ export function parseArgs(argv: string[]): string[] {
       process.exit(1);
     }
   }
-  
+
   return args;
 }
 ```

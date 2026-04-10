@@ -1,8 +1,8 @@
 # Story MAAR-006: Output Reporting
 
-**Points:** 1  
-**Priority:** Must Have  
-**Status:** Not Started  
+**Points:** 1\
+**Priority:** Must Have\
+**Status:** Not Started\
 **Depends On:** MAAR-001
 
 ## Story
@@ -29,10 +29,10 @@ As a user, I want clear console output showing processing results so that I know
 
 ```typescript
 // src/reporter.ts
-import { FileResult } from './types.js';
+import { FileResult } from "./types.js";
 
 export function formatSuccess(file: string, count: number): string {
-  return `✓ ${file}: ${count} diagram${count === 1 ? '' : 's'}`;
+  return `✓ ${file}: ${count} diagram${count === 1 ? "" : "s"}`;
 }
 
 export function formatWarning(file: string): string {
@@ -40,18 +40,20 @@ export function formatWarning(file: string): string {
 }
 
 export function formatError(
-  file: string, 
-  diagram: string, 
-  message: string
+  file: string,
+  diagram: string,
+  message: string,
 ): string {
   return `✗ ${file}: ${diagram} - ${message}`;
 }
 
 export function formatSummary(
-  totalDiagrams: number, 
-  totalFiles: number
+  totalDiagrams: number,
+  totalFiles: number,
 ): string {
-  return `Done. Total: ${totalDiagrams} diagram${totalDiagrams === 1 ? '' : 's'} in ${totalFiles} file${totalFiles === 1 ? '' : 's'}.`;
+  return `Done. Total: ${totalDiagrams} diagram${
+    totalDiagrams === 1 ? "" : "s"
+  } in ${totalFiles} file${totalFiles === 1 ? "" : "s"}.`;
 }
 
 export function printResults(results: FileResult[]): void {

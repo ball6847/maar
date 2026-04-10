@@ -1,0 +1,11 @@
+{
+  "name": "@scope/maar",
+  "version": "1.0.0",
+  "exports": "./maar.ts",
+  "include": [
+    "maar.ts",
+    "src/**/*.ts",
+    "README.md",
+    "LICENSE"
+  ]
+}
