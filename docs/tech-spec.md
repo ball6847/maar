@@ -97,7 +97,6 @@ maar/
 ├── maar.ts               # Main entry point
 ├── deno.json             # Deno configuration
 ├── deno.lock             # Dependency lock file
-
 ```
 
 ### 4.2 Module Interfaces

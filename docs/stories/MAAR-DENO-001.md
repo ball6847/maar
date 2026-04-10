@@ -41,8 +41,8 @@ TypeScript support and JSR distribution.
 }
 ```
 
-Note: JSR publishing configuration is included directly in `deno.json` under the `publish` key.
-No separate `jsr.json` file is needed for Deno projects.
+Note: JSR publishing configuration is included directly in `deno.json` under the `publish` key. No
+separate `jsr.json` file is needed for Deno projects.
 
 ## Definition of Done
 
