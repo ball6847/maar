@@ -1,3 +1,4 @@
+import { renderMermaidASCII } from "beautiful-mermaid";
 import type { RenderResult } from "./types.ts";
 
 export async function renderToAscii(
@@ -19,9 +20,6 @@ export async function renderToAscii(
 
   try {
     const content = await Deno.readTextFile(absolutePath);
-
-    // Import beautiful-mermaid via npm specifier
-    const { renderMermaidASCII } = await import("beautiful-mermaid");
 
     const ascii = renderMermaidASCII(content);
 
