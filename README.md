@@ -49,11 +49,14 @@ deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 
 ```markdown
 <!-- MAAR: path/to/diagram.mmd -->
-```
-
-┌─────┐ │Start│ └─────┘
-
-```
+┌─────┐
+│Start│
+└─────┘
+  │
+  ▼
+┌────────┐
+│Process │
+└────────┘
 [View Flow](path/to/diagram.mmd)
 ```
 
