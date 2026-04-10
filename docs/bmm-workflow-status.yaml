@@ -1,0 +1,31 @@
+project: "maar"
+level: 1
+updated_at: "2026-04-10"
+
+phases:
+  analysis:
+    product-brief: "optional"
+    brainstorm: "optional"
+    research: "optional"
+  
+  planning:
+    prd: "docs/PRD.md"
+    tech-spec: "docs/tech-spec.md"
+    ux-design: "optional"
+  
+  solutioning:
+    architecture: "optional"
+  
+  implementation:
+    sprint-planning: "docs/sprint-plan.md"
+    stories:
+      - "docs/stories/MAAR-001.md"
+      - "docs/stories/MAAR-002.md"
+      - "docs/stories/MAAR-003.md"
+      - "docs/stories/MAAR-004.md"
+      - "docs/stories/MAAR-005.md"
+      - "docs/stories/MAAR-006.md"
+      - "docs/stories/MAAR-007.md"
+      - "docs/stories/MAAR-008.md"
+
+next_recommended: "/dev-story MAAR-001"
