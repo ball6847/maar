@@ -2,7 +2,10 @@
 
 ## 1. Overview
 
-An installable agent skill (for skills.sh) that enables AI coding agents to use MAAR (Mermaid ASCII Auto-Renderer) effectively. The skill guides agents through the full workflow: writing Mermaid `.mmd` diagram files, linking them in Markdown, running MAAR to render ASCII art into docs, and verifying/committing results.
+An installable agent skill (for skills.sh) that enables AI coding agents to use MAAR (Mermaid ASCII
+Auto-Renderer) effectively. The skill guides agents through the full workflow: writing Mermaid
+`.mmd` diagram files, linking them in Markdown, running MAAR to render ASCII art into docs, and
+verifying/committing results.
 
 ## 2. Goals
 
@@ -14,6 +17,7 @@ An installable agent skill (for skills.sh) that enables AI coding agents to use 
 ## 3. Target Users
 
 AI coding agents (Claude Code, OpenCode, Cursor, etc.) that need to:
+
 - Add architecture/system diagrams to project documentation
 - Maintain up-to-date diagrams alongside code changes
 - Keep diagrams as code (`.mmd` files) in version control
@@ -74,12 +78,14 @@ The skill must guide agents through this exact sequence:
 #### Step 1: Identify Need
 
 Determine if the user wants a new diagram or to update an existing one:
+
 - **New diagram**: Create a `.mmd` file and link it from Markdown
 - **Update diagram**: Edit the `.mmd` file, then re-run MAAR
 
 #### Step 2: Create/Edit Mermaid File
 
 Write or edit a `.mmd` file with valid Mermaid syntax. The diagram file must:
+
 - Use one of the supported diagram types (see Mermaid syntax reference)
 - Be placed in a sensible location relative to the Markdown file (e.g., `docs/diagrams/`)
 - Have a `.mmd` extension
@@ -107,6 +113,7 @@ deno run --allow-read --allow-write jsr:@ball6847/maar <markdown-file.md>
 ```
 
 MAAR will:
+
 - Detect the `.mmd` link in the Markdown
 - Read and render the Mermaid diagram as ASCII
 - Inject the ASCII art above the link, wrapped in a `<!-- MAAR: ... -->` marker and code block
@@ -115,13 +122,15 @@ MAAR will:
 #### Step 5: Verify Output
 
 After running MAAR:
+
 1. Read the modified Markdown file to confirm the ASCII art was injected
 2. If MAAR exited with code 1, read the error message and fix the `.mmd` file
 3. If successful, proceed to commit
 
 #### Step 6: Commit (if requested)
 
-Commit both the `.mmd` file and the modified `.md` file together so the diagram source and rendered output stay in sync.
+Commit both the `.mmd` file and the modified `.md` file together so the diagram source and rendered
+output stay in sync.
 
 ### 4.5 MAAR Marker Format
 
@@ -129,6 +138,7 @@ Injected ASCII blocks follow this structure:
 
 ````markdown
 <!-- MAAR: path/to/diagram.mmd -->
+
 ```
 ┌─────┐
 │Start│
@@ -146,18 +156,21 @@ Injected ASCII blocks follow this structure:
 ### 4.6 Re-rendering (Deterministic)
 
 MAAR is idempotent — running it again on the same file produces identical output:
+
 - If a `<!-- MAAR: ... -->` marker exists, MAAR replaces the existing ASCII block
 - Running twice on the same file yields the exact same result
 
 ### 4.7 Error Handling
 
 MAAR uses fail-fast behavior:
+
 - **Missing `.md` file** → exit 1 with error
 - **Missing `.mmd` file referenced in a link** → exit 1 with specific diagram path
 - **Mermaid syntax error** → exit 1 with error message
 - **No diagrams found** → warning (exit 0), outputs `⚠ filename: 0 diagrams`
 
 When MAAR fails, the agent must:
+
 1. Read the error output
 2. Fix the `.mmd` file (syntax error) or the link path (file not found)
 3. Re-run MAAR
@@ -166,13 +179,13 @@ When MAAR fails, the agent must:
 
 The skill should include a concise reference for the most common Mermaid diagram types:
 
-| Type | Keyword | Use For |
-|------|---------|---------|
-| Flowchart | `flowchart` | Processes, workflows, decision trees |
-| Sequence | `sequenceDiagram` | API calls, interactions, message flows |
-| State | `stateDiagram-v2` | Application states, lifecycle, FSM |
-| Class | `classDiagram` | Object models, architecture, relationships |
-| ER | `erDiagram` | Database schema, data models |
+| Type      | Keyword           | Use For                                    |
+| --------- | ----------------- | ------------------------------------------ |
+| Flowchart | `flowchart`       | Processes, workflows, decision trees       |
+| Sequence  | `sequenceDiagram` | API calls, interactions, message flows     |
+| State     | `stateDiagram-v2` | Application states, lifecycle, FSM         |
+| Class     | `classDiagram`    | Object models, architecture, relationships |
+| ER        | `erDiagram`       | Database schema, data models               |
 
 Detailed syntax should be in `references/mermaid-syntax.md`.
 
@@ -235,6 +248,7 @@ ln -s $(pwd)/maar/skills/maar ~/.agents/skills/maar
 ### 8.3 Self-Referencing
 
 The skill should reference its own repo for:
+
 - MAAR installation instructions
 - Example `.mmd` files (if any)
 - Troubleshooting / issues link

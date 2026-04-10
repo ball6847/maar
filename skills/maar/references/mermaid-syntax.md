@@ -1,6 +1,7 @@
 # Mermaid Syntax Reference
 
-Quick reference for common Mermaid diagram types. For full documentation, see https://mermaid.js.org/.
+Quick reference for common Mermaid diagram types. For full documentation, see
+https://mermaid.js.org/.
 
 ---
 
@@ -27,14 +28,14 @@ flowchart TD
 
 ### Node Shapes
 
-| Syntax | Shape | Example |
-|--------|-------|---------|
-| `A[text]` | Rectangle | `[Process]` |
-| `A(text)` | Rounded | `(Start)` |
-| `A((text))` | Circle | `((State))` |
-| `A{text}` | Rhombus | `{Decision}` |
+| Syntax      | Shape      | Example        |
+| ----------- | ---------- | -------------- |
+| `A[text]`   | Rectangle  | `[Process]`    |
+| `A(text)`   | Rounded    | `(Start)`      |
+| `A((text))` | Circle     | `((State))`    |
+| `A{text}`   | Rhombus    | `{Decision}`   |
 | `A[[text]]` | Subroutine | `[[Function]]` |
-| `A[(text)]` | Cylinder | `[(Database)]` |
+| `A[(text)]` | Cylinder   | `[(Database)]` |
 
 ### Connections
 
@@ -81,13 +82,13 @@ sequenceDiagram
 
 ### Arrows
 
-| Syntax | Meaning |
-|--------|---------|
-| `->>` | Solid arrow |
+| Syntax | Meaning      |
+| ------ | ------------ |
+| `->>`  | Solid arrow  |
 | `-->>` | Dotted arrow |
-| `--)` | Async |
-| `->>+` | Activate |
-| `->>-` | Deactivate |
+| `--)`  | Async        |
+| `->>+` | Activate     |
+| `->>-` | Deactivate   |
 
 ### Example: Authentication Flow
 
@@ -181,14 +182,14 @@ classDiagram
 ### Relationships
 
 | Syntax | Relationship |
-|--------|-------------|
-| `-->` | Association |
-| `--*` | Composition |
-| `--o` | Aggregation |
-| `--|>` | Inheritance |
-| `--` | Link (solid) |
-| `..>` | Dependency |
-| `..|>` | Realization |
+| ------ | ------------ |
+| `-->`  | Association  |
+| `--*`  | Composition  |
+| `--o`  | Aggregation  |
+| `--    | >`           |
+| `--`   | Link (solid) |
+| `..>`  | Dependency   |
+| `..    | >`           |
 
 ### Multiplicity
 
@@ -238,13 +239,13 @@ erDiagram
 
 ### Relationship Syntax
 
-| Symbol | Meaning |
-|--------|---------|
-| `\|\|` | Exactly one |
-| `o{` | Zero or more |
-| `\|{` | One or more |
-| `}o` | Zero or more |
-| `}\|` | One or more |
+| Symbol | Meaning      |
+| ------ | ------------ |
+| `\|\|` | Exactly one  |
+| `o{`   | Zero or more |
+| `\|{`  | One or more  |
+| `}o`   | Zero or more |
+| `}\|`  | One or more  |
 
 ### Entity Attributes
 

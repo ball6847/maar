@@ -16,7 +16,8 @@ description: |
 
 # MAAR — Mermaid ASCII Auto-Renderer
 
-Render Mermaid diagrams as ASCII art and inject them into Markdown files automatically. Keep diagrams as code (`.mmd` files) in version control, with rendered ASCII output in your docs.
+Render Mermaid diagrams as ASCII art and inject them into Markdown files automatically. Keep
+diagrams as code (`.mmd` files) in version control, with rendered ASCII output in your docs.
 
 ## Quick Start
 
@@ -35,6 +36,7 @@ deno run --allow-read --allow-write jsr:@ball6847/maar docs/README.md
 ### Step 1: Identify the Need
 
 Determine what the user wants:
+
 - **New diagram**: Create a `.mmd` file and link it from Markdown
 - **Update diagram**: Edit the `.mmd` file, then re-run MAAR
 
@@ -77,6 +79,7 @@ deno run --allow-read --allow-write jsr:@ball6847/maar <markdown-file.md>
 ```
 
 MAAR will:
+
 - Detect all `.mmd` links in the file
 - Render each diagram as ASCII
 - Inject ASCII blocks above each link
@@ -85,6 +88,7 @@ MAAR will:
 ### Step 5: Verify Output
 
 After running MAAR:
+
 1. Read the modified Markdown file to confirm ASCII was injected
 2. If MAAR exited with code 1, read the error and fix the `.mmd` file
 3. If successful, the file now contains the rendered diagram
@@ -107,16 +111,10 @@ MAAR injects ASCII in this structure:
 ```markdown
 <!-- MAAR: diagrams/flow.mmd -->
 ```
-┌─────┐
-│Start│
-└─────┘
-     │
-     ▼
-  ┌──────┐
-  │Action│
-  └──────┘
-```
 
+┌─────┐ │Start│ └─────┘ │ ▼ ┌──────┐ │Action│ └──────┘
+
+```
 [View Flow](diagrams/flow.mmd)
 ```
 
@@ -138,7 +136,8 @@ deno run --allow-read --allow-write jsr:@ball6847/maar README.md
 deno run --allow-read --allow-write jsr:@ball6847/maar README.md
 ```
 
-When a `<!-- MAAR: ... -->` marker exists, MAAR replaces the ASCII block. This makes updating diagrams easy:
+When a `<!-- MAAR: ... -->` marker exists, MAAR replaces the ASCII block. This makes updating
+diagrams easy:
 
 1. Edit the `.mmd` file
 2. Re-run MAAR
@@ -150,13 +149,14 @@ When a `<!-- MAAR: ... -->` marker exists, MAAR replaces the ASCII block. This m
 
 MAAR fails fast with specific errors:
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `file not found` | `.md` or `.mmd` file missing | Check file paths |
-| `syntax error` | Invalid Mermaid syntax | Fix `.mmd` content |
-| `0 diagrams` | No `.mmd` links found | Add links to Markdown |
+| Error            | Cause                        | Fix                   |
+| ---------------- | ---------------------------- | --------------------- |
+| `file not found` | `.md` or `.mmd` file missing | Check file paths      |
+| `syntax error`   | Invalid Mermaid syntax       | Fix `.mmd` content    |
+| `0 diagrams`     | No `.mmd` links found        | Add links to Markdown |
 
 When MAAR fails:
+
 1. Read the error output carefully
 2. Fix the source `.mmd` file (for syntax errors) or link path (for missing files)
 3. Re-run MAAR
@@ -165,13 +165,13 @@ When MAAR fails:
 
 ## Diagram Types
 
-| Type | Keyword | Use For |
-|------|---------|---------|
-| Flowchart | `flowchart` | Processes, workflows, decision trees |
-| Sequence | `sequenceDiagram` | API calls, interactions, message flows |
-| State | `stateDiagram-v2` | Application states, lifecycle, FSM |
-| Class | `classDiagram` | Object models, architecture, relationships |
-| ER | `erDiagram` | Database schema, data models |
+| Type      | Keyword           | Use For                                    |
+| --------- | ----------------- | ------------------------------------------ |
+| Flowchart | `flowchart`       | Processes, workflows, decision trees       |
+| Sequence  | `sequenceDiagram` | API calls, interactions, message flows     |
+| State     | `stateDiagram-v2` | Application states, lifecycle, FSM         |
+| Class     | `classDiagram`    | Object models, architecture, relationships |
+| ER        | `erDiagram`       | Database schema, data models               |
 
 See [mermaid-syntax.md](references/mermaid-syntax.md) for detailed syntax examples.
 
@@ -201,6 +201,7 @@ curl -fsSL https://deno.land/install.sh | sh
 Validate at https://mermaid.live/ before running MAAR.
 
 Common issues:
+
 - Missing spaces in `A --> B` (use `A --> B`)
 - Incorrect node shape syntax
 - Unclosed brackets
@@ -208,6 +209,7 @@ Common issues:
 ### Path Resolution
 
 The `.mmd` path is relative to the Markdown file:
+
 - Markdown: `docs/README.md`
 - Link: `[Flow](diagrams/flow.mmd)`
 - MAAR looks for: `docs/diagrams/flow.mmd`
