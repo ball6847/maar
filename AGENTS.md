@@ -7,7 +7,7 @@
 ### Key Technologies
 - **Runtime**: Node.js + tsx
 - **Language**: TypeScript (strict mode)
-- **Rendering Engine**: pretty-mermaid
+- **Rendering Engine**: beautiful-mermaid
 - **Architecture**: CLI tool with modular components
 
 ---
@@ -19,11 +19,10 @@
 npm install
 ```
 
-### Install pretty-mermaid (Required Runtime Dependency)
+### Install beautiful-mermaid (Required Runtime Dependency)
 ```bash
-npm install -g pretty-mermaid
-# or
-npx pretty-mermaid --version  # verify availability
+npm install
+# beautiful-mermaid is listed as a dependency in package.json
 ```
 
 ---
@@ -84,7 +83,7 @@ maar/
 │   ├── types.ts          # TypeScript interfaces
 │   ├── cli.ts            # CLI argument parsing
 │   ├── detector.ts       # Mermaid link detection
-│   ├── renderer.ts       # pretty-mermaid execution
+│   ├── renderer.ts       # beautiful-mermaid execution
 │   ├── injector.ts       # Markdown modification
 │   └── reporter.ts       # Output formatting
 ├── maar.ts               # Main entry point

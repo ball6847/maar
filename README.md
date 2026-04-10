@@ -25,7 +25,7 @@ npx tsx maar.ts <file1.md> [file2.md ...]
 ## How It Works
 
 1. Scans Markdown files for links ending in `.mmd`
-2. Renders each Mermaid diagram to ASCII using `mermaid-ascii`
+2. Renders each Mermaid diagram to ASCII using `beautiful-mermaid`
 3. Injects ASCII art above the link with a MAAR marker:
 
 ```markdown
@@ -73,7 +73,7 @@ npx tsx maar.ts README.md docs/*.md
 ## Requirements
 
 - Node.js 18+
-- `mermaid-ascii` (installed automatically)
+- `beautiful-mermaid` (installed automatically)
 
 ## License
 

@@ -1,7 +1,7 @@
 Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 
 1. Overview
-   TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art using pretty-mermaid and injects output into Markdown files as code blocks. Designed for LLM agent workflows to eliminate complex ASCII manipulation from agent tool calling.
+   TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art using beautiful-mermaid and injects output into Markdown files as code blocks. Designed for LLM agent workflows to eliminate complex ASCII manipulation from agent tool calling.
 
 2. Goals
 
@@ -31,8 +31,8 @@ Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 
 1. Extract `.mmd` path from link
 2. Validate `.mmd` file exists (exit 1 if missing)
-3. Execute pretty-mermaid CLI to generate ASCII
-4. If pretty-mermaid exits non-zero or returns empty, exit 1 immediately
+3. Call beautiful-mermaid library to generate ASCII
+4. If rendering throws error or returns empty, exit 1 immediately
 5. Insert/replace ASCII block above the link line
 
 3.4 Markdown Injection Strategy
@@ -98,7 +98,7 @@ Rules:
 5.1 Stack
 
 - Runtime: Node.js + tsx
-- Dependencies: pretty-mermaid (CLI), fs, path, child_process
+- Dependencies: beautiful-mermaid (library), fs, path
 - TypeScript: strict mode
 
   5.2 Types
@@ -125,7 +125,7 @@ interface FileResult {
    - Scan for `.mmd` links
    - For each link:
      - Resolve path
-     - Call pretty-mermaid
+     - Call beautiful-mermaid
      - If error → output failure line, exit 1
      - Insert/replace ASCII block with MAAR marker
    - Write file atomically

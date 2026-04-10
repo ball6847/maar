@@ -1,12 +1,12 @@
-import { spawn } from 'child_process';
-import { resolve, dirname } from 'path';
-import { existsSync, createReadStream } from 'fs';
+import { resolve } from 'path';
+import { existsSync, readFileSync } from 'fs';
+import { renderMermaidASCII } from 'beautiful-mermaid';
 import { RenderResult } from './types.js';
 
-export async function renderToAscii(
+export function renderToAscii(
   mmdPath: string,
   markdownDir: string
-): Promise<RenderResult> {
+): RenderResult {
   const absolutePath = resolve(markdownDir, mmdPath);
 
   if (!existsSync(absolutePath)) {
@@ -16,56 +16,25 @@ export async function renderToAscii(
     };
   }
 
-  return new Promise((resolve) => {
-    const proc = spawn('npx', ['mermaid-ascii'], {
-      stdio: ['pipe', 'pipe', 'pipe']
-    });
-
-    let stdout = '';
-    let stderr = '';
-
-    proc.stdout.on('data', (data) => {
-      stdout += data.toString();
-    });
-
-    proc.stderr.on('data', (data) => {
-      stderr += data.toString();
-    });
-
-    proc.on('close', (code) => {
-      if (code !== 0) {
-        resolve({
-          success: false,
-          error: stderr.trim() || `exited with code ${code}`
-        });
-      } else if (!stdout.trim()) {
-        resolve({
-          success: false,
-          error: 'empty output'
-        });
-      } else {
-        resolve({
-          success: true,
-          ascii: stdout.trimEnd()
-        });
-      }
-    });
-
-    proc.on('error', (err) => {
-      resolve({
+  try {
+    const content = readFileSync(absolutePath, 'utf-8');
+    const ascii = renderMermaidASCII(content);
+    
+    if (!ascii.trim()) {
+      return {
         success: false,
-        error: err.message
-      });
-    });
-
-    // Pipe file content to stdin
-    const fileStream = createReadStream(absolutePath);
-    fileStream.pipe(proc.stdin);
-    fileStream.on('error', (err) => {
-      resolve({
-        success: false,
-        error: err.message
-      });
-    });
-  });
+        error: 'empty output'
+      };
+    }
+    
+    return {
+      success: true,
+      ascii: ascii.trimEnd()
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : 'unknown error'
+    };
+  }
 }

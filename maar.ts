@@ -25,7 +25,7 @@ async function processFile(filePath: string): Promise<FileResult> {
   let currentLines = [...lines];
 
   for (const link of sortedLinks) {
-    const render = await renderToAscii(link.mmdPath, markdownDir);
+    const render = renderToAscii(link.mmdPath, markdownDir);
 
     if (!render.success) {
       console.error(formatError(filePath, link.mmdPath, render.error!));
