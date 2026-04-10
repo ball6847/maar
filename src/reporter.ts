@@ -1,5 +1,3 @@
-import { FileResult } from "./types.ts";
-
 export function formatSuccess(file: string, count: number): string {
   return `✓ ${file}: ${count} diagram${count === 1 ? "" : "s"}`;
 }

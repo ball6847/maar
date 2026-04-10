@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { parseArgs } from "../src/cli.ts";
 
 Deno.test("parseArgs returns file paths from argv", async () => {

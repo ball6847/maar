@@ -1,4 +1,4 @@
-import { DiagramLink } from "./types.ts";
+import type { DiagramLink } from "./types.ts";
 
 export function createInjectionBlock(
   mmdPath: string,

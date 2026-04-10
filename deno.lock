@@ -34,6 +34,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@std/assert@1",
       "npm:beautiful-mermaid@^1.1.3"
     ]
   }

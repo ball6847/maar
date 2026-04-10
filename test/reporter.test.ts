@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { formatError, formatSuccess, formatSummary, formatWarning } from "../src/reporter.ts";
 
 Deno.test("formatSuccess formats correctly with singular", () => {

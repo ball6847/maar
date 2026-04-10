@@ -3,7 +3,7 @@ import { detectDiagramLinks, findExistingMarker } from "./src/detector.ts";
 import { renderToAscii } from "./src/renderer.ts";
 import { injectAscii, writeFileAtomic } from "./src/injector.ts";
 import { formatError, formatSuccess, formatSummary, formatWarning } from "./src/reporter.ts";
-import { FileResult } from "./src/types.ts";
+import type { FileResult } from "./src/types.ts";
 
 async function processFile(filePath: string): Promise<FileResult> {
   const content = await Deno.readTextFile(filePath);

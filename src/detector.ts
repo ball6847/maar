@@ -1,4 +1,4 @@
-import { DiagramLink } from "./types.ts";
+import type { DiagramLink } from "./types.ts";
 
 const MMD_LINK_REGEX = /!?\[([^\]]*)\]\(([^)]+\.mmd)\)/i;
 const MAAR_MARKER_REGEX = /<!--\s*MAAR:\s*(.+?)\s*-->/i;

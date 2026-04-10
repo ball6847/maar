@@ -1,4 +1,4 @@
-import { assertEquals, assertNotEquals } from "jsr:@std/assert";
+import { assertEquals, assertNotEquals } from "@std/assert";
 import { detectDiagramLinks, findExistingMarker } from "../src/detector.ts";
 
 Deno.test("detectDiagramLinks detects basic mmd link", () => {

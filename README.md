@@ -47,8 +47,11 @@ deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 2. Renders each Mermaid diagram to ASCII using `beautiful-mermaid`
 3. Injects ASCII art above the link with a MAAR marker:
 
-```markdown
+<!-- deno-fmt-ignore-start -->
+
+```
 <!-- MAAR: path/to/diagram.mmd -->
+```
 ┌─────┐
 │Start│
 └─────┘
@@ -57,8 +60,11 @@ deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 ┌────────┐
 │Process │
 └────────┘
+
 [View Flow](path/to/diagram.mmd)
 ```
+
+<!-- deno-fmt-ignore-end -->
 
 ## Output Format
 

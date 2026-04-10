@@ -1,6 +1,6 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { createInjectionBlock, injectAscii } from "../src/injector.ts";
-import { DiagramLink } from "../src/types.ts";
+import type { DiagramLink } from "../src/types.ts";
 
 Deno.test("createInjectionBlock creates properly formatted block", () => {
   const block = createInjectionBlock("path.mmd", "ASCII");
