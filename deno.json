@@ -1,6 +1,6 @@
 {
   "name": "@ball6847/maar",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "exports": "./maar.ts",
   "publish": {
     "include": [
