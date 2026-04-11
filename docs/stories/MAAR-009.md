@@ -1,12 +1,13 @@
 # Story MAAR-009: Fix Nested Markdown Codeblocks
 
-**Points:** 1  
-**Priority:** Should Have  
+**Points:** 1\
+**Priority:** Should Have\
 **Status:** Complete
 
 ## Story
 
-As a developer, I want properly formatted markdown documents so that nested codeblocks render correctly without syntax errors.
+As a developer, I want properly formatted markdown documents so that nested codeblocks render
+correctly without syntax errors.
 
 ## Acceptance Criteria
 

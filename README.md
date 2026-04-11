@@ -98,6 +98,9 @@ Done. Total: 0 diagrams in 1 file.
 git clone <repo-url>
 cd maar
 
+# Install git hooks (pre-commit: format + lint)
+lefthook install
+
 # Run directly
 deno task start <file.md>
 
@@ -112,6 +115,35 @@ deno task fmt
 
 # Lint
 deno task lint
+```
+
+### Git Hooks (Lefthook)
+
+This project uses [Lefthook](https://github.com/evilmartians/lefthook) for pre-commit hooks that
+automatically format and lint code.
+
+**Install Lefthook:**
+
+```bash
+# macOS/Linux (Homebrew)
+brew install lefthook
+
+# Go
+go install github.com/evilmartians/lefthook@latest
+```
+
+**Setup after cloning:**
+
+```bash
+lefthook install
+```
+
+**Skip hooks (when needed):**
+
+```bash
+git commit --no-verify -m "message"
+# or
+LEFTHOOK=0 git commit -m "message"
 ```
 
 ## Requirements

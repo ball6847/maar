@@ -1,8 +1,8 @@
-# Story MAAR-010: Setup Husky Pre-commit Formatting
+# Story MAAR-010: Setup Lefthook Pre-commit Formatting
 
 **Points:** 1  
 **Priority:** Should Have  
-**Status:** Not Started
+**Status:** COMPLETE
 
 ## Story
 
@@ -10,41 +10,38 @@ As a developer, I want automatic code formatting before each commit so that code
 
 ## Acceptance Criteria
 
-- [ ] Husky installed and configured
-- [ ] Pre-commit hook runs `deno task fmt`
-- [ ] Formatting runs automatically on `git commit`
-- [ ] Commit fails if formatting produces changes (so developer can review and re-commit)
+- [x] Lefthook installed and configured
+- [x] Pre-commit hook runs `deno task fmt`
+- [x] Pre-commit hook runs `deno task lint`
+- [x] Formatting runs automatically on `git commit`
+- [x] Formatted files auto-staged
 
 ## Technical Notes
 
-- Use husky v9+ (modern version)
-- Pre-commit hook should run `deno task fmt`
-- Consider: should we auto-add formatted files or fail and let developer review?
+- **Decision:** Used Lefthook instead of Husky because:
+  - Project is pure Deno (no package.json)
+  - Husky requires Node.js ecosystem
+  - Lefthook is language-agnostic (Go binary)
+  - Faster execution (~1ms)
 
-## Implementation Hints
+## Implementation
 
-```bash
-# Install husky
-deno add npm:husky
+Created `lefthook.yml`:
 
-# Initialize husky
-npx husky init
-
-# Create pre-commit hook
-echo "deno task fmt" > .husky/pre-commit
+```yaml
+pre-commit:
+  parallel: false
+  commands:
+    format:
+      run: deno task fmt
+      glob: "*.{ts,tsx,js,jsx,json,md}"
+      stage_fixed_files: true
+    lint:
+      run: deno task lint
+      glob: "*.{ts,tsx,js,jsx}"
 ```
 
-Alternative (simpler) - just create `.husky/pre-commit`:
-```bash
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+## Files Created/Modified
 
-deno task fmt
-git add -A
-```
-
-## Files to Create/Modify
-
-- `.husky/pre-commit` (create)
-- `deno.json` (add husky to tasks if needed)
-- `.gitignore` (ensure .husky tracked appropriately)
+- `lefthook.yml` (created)
+- `README.md` (added setup instructions)
