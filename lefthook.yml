@@ -3,8 +3,7 @@ pre-commit:
   commands:
     format:
       run: |
-        deno task fmt
-        git add -u
+        deno task fmt | grep "^/" | xargs -r git add
       glob: "*.{ts,tsx,js,jsx,json,md}"
     lint:
       run: deno task lint
