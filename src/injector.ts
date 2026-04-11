@@ -1,11 +1,15 @@
 import type { DiagramLink } from "./types.ts";
 
+// Regex to detect mmd links - same as in detector.ts
+const MMD_LINK_REGEX = /!?\[([^\]]*)\]\(([^)]+\.mmd)\)/i;
+
 export function createInjectionBlock(
   mmdPath: string,
   ascii: string,
 ): string[] {
   return [
     `<!-- MAAR: ${mmdPath} -->`,
+    "", // Blank line after marker for better Markdown rendering
     "```",
     ascii,
     "```",
@@ -49,10 +53,18 @@ export function injectAscii(
   return result;
 }
 
-function findMarkerLine(lines: string[], startIndex: number, mmdPath: string): number {
-  // Search up to 100 lines back to handle large ASCII art blocks
-  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 100); i--) {
-    if (lines[i] === `<!-- MAAR: ${mmdPath} -->`) {
+function findMarkerLine(lines: string[], linkIndex: number, mmdPath: string): number {
+  // Search backward from link position with early termination at other mmd links
+  for (let i = linkIndex - 1; i >= 0; i--) {
+    const line = lines[i];
+    
+    // EARLY TERMINATION: Hit another mmd link (different diagram's boundary)
+    if (MMD_LINK_REGEX.test(line)) {
+      return -1;
+    }
+    
+    // Found our marker
+    if (line === `<!-- MAAR: ${mmdPath} -->`) {
       return i;
     }
   }

@@ -35,5 +35,6 @@ phases:
       - "docs/stories/MAAR-DENO-006.md - COMPLETE"
       - "docs/stories/MAAR-009.md - COMPLETE"
       - "docs/stories/MAAR-010.md - COMPLETE"
+      - "docs/stories/MAAR-BUG-001.md - COMPLETE"
 
 next_recommended: "All tasks complete. Ready to commit."
