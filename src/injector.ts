@@ -25,17 +25,16 @@ export function injectAscii(
   if (hasExistingMarker) {
     const markerLine = findMarkerLine(result, link.lineIndex, link.mmdPath);
     if (markerLine !== -1) {
-      // Find the end of the code block (the SECOND ``` after the marker)
-      // First, skip past the opening ```
-      const codeBlockStart = markerLine + 1;
-      if (result[codeBlockStart]?.trim() !== "```") {
+      // Find the opening ```, skipping any blank lines between marker and code fence
+      const codeBlockStart = findCodeBlockStart(result, markerLine + 1);
+      if (codeBlockStart === -1) {
         // Malformed - no opening ```, just insert new block
         result.splice(link.lineIndex, 0, ...block);
         return result;
       }
       // Find the closing ``` (after the ASCII content)
       const codeBlockEnd = findCodeBlockEnd(result, codeBlockStart + 1);
-      // Also consume the empty line after the code block if present
+      // Delete from marker line through closing ```, including blank lines before/after
       let deleteCount = codeBlockEnd - markerLine + 1;
       if (result[codeBlockEnd + 1] === "") {
         deleteCount++;
@@ -55,6 +54,19 @@ function findMarkerLine(lines: string[], startIndex: number, mmdPath: string): n
   for (let i = startIndex - 1; i >= Math.max(0, startIndex - 100); i--) {
     if (lines[i] === `<!-- MAAR: ${mmdPath} -->`) {
       return i;
+    }
+  }
+  return -1;
+}
+
+function findCodeBlockStart(lines: string[], startIndex: number): number {
+  for (let i = startIndex; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed === "```") {
+      return i;
+    }
+    if (trimmed !== "") {
+      return -1;
     }
   }
   return -1;
