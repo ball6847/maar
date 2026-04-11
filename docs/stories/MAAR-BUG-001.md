@@ -1,15 +1,16 @@
 # MAAR-BUG-001: Fix Idempotent Diagram Detection with Unbounded Search
 
-**Status:** Ready for Implementation  
-**Priority:** High  
-**Created:** 2026-04-11  
-**Assignee:** Developer  
+**Status:** Ready for Implementation\
+**Priority:** High\
+**Created:** 2026-04-11\
+**Assignee:** Developer
 
 ---
 
 ## Problem Statement
 
-The current diagram detection mechanism in `injector.ts` has a **100-line search limit** when looking for existing MAAR markers. This causes duplicate diagram injection when:
+The current diagram detection mechanism in `injector.ts` has a **100-line search limit** when
+looking for existing MAAR markers. This causes duplicate diagram injection when:
 
 1. A diagram's ASCII content exceeds 100 lines
 2. The marker falls outside the search window
@@ -20,27 +21,31 @@ The current diagram detection mechanism in `injector.ts` has a **100-line search
 ```markdown
 <!-- MAAR: diagrams/big-flow.mmd -->
 ```
+
 ```
 [100+ lines of ASCII art]
 ```
 
 [View Flow](diagrams/big-flow.mmd)
-```
 
+````
 After re-render (BUG - duplicate):
 ```markdown
 <!-- MAAR: diagrams/big-flow.mmd -->
-```
+````
+
 ```
 [100+ lines of ASCII art]
 ```
 
 <!-- MAAR: diagrams/big-flow.mmd -->  ← DUPLICATE!
+
 ```
-```
-[100+ lines of ASCII art]
 ```
 
+[100+ lines of ASCII art]
+
+```
 [View Flow](diagrams/big-flow.mmd)
 ```
 
@@ -63,6 +68,7 @@ function findMarkerLine(lines: string[], startIndex: number, mmdPath: string): n
 ```
 
 This is fragile because:
+
 - Large diagrams can exceed 100 lines
 - The limit is arbitrary and not documented
 - No recovery mechanism when marker is not found
@@ -73,7 +79,8 @@ This is fragile because:
 
 ### Approach: Link-as-Boundary with Early Termination
 
-Use the `.mmd` link position as the natural end boundary. Search backward from the link with **early termination** when hitting another diagram's territory.
+Use the `.mmd` link position as the natural end boundary. Search backward from the link with **early
+termination** when hitting another diagram's territory.
 
 ### Algorithm
 
@@ -81,12 +88,12 @@ Use the `.mmd` link position as the natural end boundary. Search backward from t
 function findMarkerLine(lines: string[], linkIndex: number, mmdPath: string): number {
   for (let i = linkIndex - 1; i >= 0; i--) {
     const line = lines[i];
-    
+
     // EARLY TERMINATION: Hit another mmd link (different diagram's boundary)
     if (MMD_LINK_REGEX.test(line)) {
       return -1;
     }
-    
+
     // Found our marker
     if (line === `<!-- MAAR: ${mmdPath} -->`) {
       return i;
@@ -102,13 +109,11 @@ Add blank line after marker for better Markdown rendering:
 
 ```markdown
 <!-- MAAR: path/to/diagram.mmd -->
-
-```
-┌─────┐
-│ASCII│
-└─────┘
 ```
 
+┌─────┐ │ASCII│ └─────┘
+
+```
 [View Diagram](path/to/diagram.mmd)
 ```
 
@@ -128,16 +133,17 @@ Add blank line after marker for better Markdown rendering:
 
 ## Files to Modify
 
-| File | Changes |
-|------|---------|
-| `src/injector.ts` | Update `findMarkerLine()` to use link-as-boundary, add blank line in `createInjectionBlock()` |
-| `test/injector.test.ts` | Add test for large diagram idempotency |
+| File                    | Changes                                                                                       |
+| ----------------------- | --------------------------------------------------------------------------------------------- |
+| `src/injector.ts`       | Update `findMarkerLine()` to use link-as-boundary, add blank line in `createInjectionBlock()` |
+| `test/injector.test.ts` | Add test for large diagram idempotency                                                        |
 
 ---
 
 ## Implementation Notes
 
-1. **Backward Compatibility**: Old single-marker format will be auto-upgraded to new format (with blank line) on next render
+1. **Backward Compatibility**: Old single-marker format will be auto-upgraded to new format (with
+   blank line) on next render
 2. **Complexity**: O(average_diagram_size) instead of O(100 fixed) or O(file_size)
 3. **Safety**: Early termination prevents scanning entire file unnecessarily
 

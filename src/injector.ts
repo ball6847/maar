@@ -57,12 +57,12 @@ function findMarkerLine(lines: string[], linkIndex: number, mmdPath: string): nu
   // Search backward from link position with early termination at other mmd links
   for (let i = linkIndex - 1; i >= 0; i--) {
     const line = lines[i];
-    
+
     // EARLY TERMINATION: Hit another mmd link (different diagram's boundary)
     if (MMD_LINK_REGEX.test(line)) {
       return -1;
     }
-    
+
     // Found our marker
     if (line === `<!-- MAAR: ${mmdPath} -->`) {
       return i;
