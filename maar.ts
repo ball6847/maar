@@ -28,7 +28,7 @@ async function processFile(filePath: string): Promise<FileResult> {
       Deno.exit(1);
     }
 
-    const marker = findExistingMarker(currentLines, link.lineIndex);
+    const marker = findExistingMarker(currentLines, link.lineIndex, link.mmdPath);
     currentLines = injectAscii(currentLines, link, render.ascii!, !!marker);
 
     diagrams.push({ status: "success", path: link.mmdPath });

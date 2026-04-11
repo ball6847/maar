@@ -23,13 +23,26 @@ export function detectDiagramLinks(lines: string[]): DiagramLink[] {
 
 export function findExistingMarker(
   lines: string[],
-  startIndex: number,
+  linkIndex: number,
+  mmdPath: string,
 ): { lineIndex: number; mmdPath: string } | null {
-  // Search up to 100 lines back to handle large ASCII art blocks
-  for (let i = startIndex - 1; i >= Math.max(0, startIndex - 100); i--) {
-    const match = lines[i].match(MAAR_MARKER_REGEX);
-    if (match) {
-      return { lineIndex: i, mmdPath: match[1] };
+  // Search backward from link position with early termination at other mmd links
+  for (let i = linkIndex - 1; i >= 0; i--) {
+    const line = lines[i];
+
+    // EARLY TERMINATION: Hit another mmd link (different diagram's boundary)
+    if (MMD_LINK_REGEX.test(line)) {
+      return null;
+    }
+
+    // Check for marker with matching path
+    const markerMatch = line.match(MAAR_MARKER_REGEX);
+    if (markerMatch) {
+      if (markerMatch[1] === mmdPath) {
+        return { lineIndex: i, mmdPath: markerMatch[1] };
+      }
+      // Found a marker for a different diagram - stop searching
+      return null;
     }
   }
   return null;

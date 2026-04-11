@@ -21,7 +21,8 @@ export async function renderToAscii(
   try {
     const content = await Deno.readTextFile(absolutePath);
 
-    const ascii = renderMermaidASCII(content);
+    // Use colorMode: 'none' to get clean ASCII without ANSI codes
+    const ascii = renderMermaidASCII(content, { colorMode: "none" });
 
     if (!ascii.trim()) {
       return {

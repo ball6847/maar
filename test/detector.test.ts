@@ -51,7 +51,7 @@ Deno.test("findExistingMarker finds marker before link", () => {
     "",
     "[Label](diagram.mmd)",
   ];
-  const marker = findExistingMarker(lines, 5);
+  const marker = findExistingMarker(lines, 5, "diagram.mmd");
 
   assertNotEquals(marker, null);
   assertEquals(marker!.mmdPath, "diagram.mmd");
@@ -60,7 +60,7 @@ Deno.test("findExistingMarker finds marker before link", () => {
 
 Deno.test("findExistingMarker returns null when no marker", () => {
   const lines = ["# Title", "", "[Label](diagram.mmd)"];
-  const marker = findExistingMarker(lines, 2);
+  const marker = findExistingMarker(lines, 2, "diagram.mmd");
 
   assertEquals(marker, null);
 });
@@ -76,7 +76,7 @@ Deno.test("findExistingMarker finds marker within 4 lines (standard format)", ()
     "",
     "[Label](diagram.mmd)",
   ];
-  const marker = findExistingMarker(lines, 6);
+  const marker = findExistingMarker(lines, 6, "diagram.mmd");
 
   assertNotEquals(marker, null);
   assertEquals(marker!.mmdPath, "diagram.mmd");

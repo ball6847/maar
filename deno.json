@@ -1,14 +1,9 @@
 {
   "name": "@ball6847/maar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "exports": "./maar.ts",
   "publish": {
-    "include": [
-      "maar.ts",
-      "src/**/*.ts",
-      "README.md",
-      "LICENSE"
-    ]
+    "include": ["maar.ts", "src/**/*.ts", "README.md", "LICENSE"]
   },
   "tasks": {
     "start": "deno run --allow-read --allow-write maar.ts",
@@ -16,7 +11,8 @@
     "check": "deno check maar.ts",
     "fmt": "deno fmt",
     "lint": "deno lint",
-    "publish:dry": "deno publish --dry-run"
+    "publish:dry": "deno publish --dry-run",
+    "install:local": "deno install --global --allow-read --allow-write -n maar-local --config deno.json --force ./maar.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.0",
