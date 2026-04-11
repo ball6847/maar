@@ -1,8 +1,10 @@
 Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 
-1. Overview TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art
-   using beautiful-mermaid and injects output into Markdown files as code blocks. Designed for LLM
-   agent workflows to eliminate complex ASCII manipulation from agent tool calling.
+1. Overview
+
+TypeScript CLI tool that auto-renders linked Mermaid diagram files (.mmd) into ASCII art using
+beautiful-mermaid and injects output into Markdown files as code blocks. Designed for LLM agent
+workflows to eliminate complex ASCII manipulation from agent tool calling.
 
 2. Goals
 
@@ -21,14 +23,14 @@ Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 - Validates file existence (exit 1 if any file missing)
 - Processes files sequentially
 
-  3.2 Mermaid Link Detection
+3.2 Mermaid Link Detection
 
 - Pattern: Markdown links ending in `.mmd` (case-insensitive)
   - `[label](path/to/diagram.mmd)` or `![alt](path/to/diagram.mmd)`
 - Path resolution: relative to markdown file's directory
 - Multiple diagrams: handles N diagrams per file, top-to-bottom
 
-  3.3 Rendering Pipeline
+3.3 Rendering Pipeline
 
 1. Extract `.mmd` path from link
 2. Validate `.mmd` file exists (exit 1 if missing)
@@ -55,7 +57,7 @@ Product Requirements Document: Mermaid ASCII Auto-Renderer (maar)
 - Code block: plain triple backticks (no language identifier)
 - One blank line between code block and link
 
-  3.5 File Modification
+3.5 File Modification
 
 - In-place editing with atomic write (temp file + rename)
 - Always rewrite (no hash/mtime checking)
@@ -102,7 +104,7 @@ Rules:
 - Dependencies: beautiful-mermaid (library), fs, path
 - TypeScript: strict mode
 
-  5.2 Types
+5.2 Types
 
 ```typescript
 interface DiagramLink {
@@ -134,12 +136,17 @@ interface FileResult {
 3. Output summary line (if no failure)
 4. Exit 0
 
-5. Error Handling
+<!-- deno-fmt-ignore -->
+6. Error Handling
 
-Scenario Output Exit Markdown not found `✗ <file> - file not found` 1 `.mmd` not found
-`✗ <file>: <diagram> - file not found` 1 Render error `✗ <file>: <diagram> - <error>` 1 Permission
-denied `✗ <file> - permission denied` 1 No diagrams `⚠ <file>: 0 diagrams` 0 Success
-`✓ <file>: <n> diagrams` 0
+| Scenario           | Output                                 | Exit |
+| ------------------ | -------------------------------------- | ---- |
+| Markdown not found | `✗ <file> - file not found`            | 1    |
+| `.mmd` not found   | `✗ <file>: <diagram> - file not found` | 1    |
+| Render error       | `✗ <file>: <diagram> - <error>`        | 1    |
+| Permission denied  | `✗ <file> - permission denied`         | 1    |
+| No diagrams        | `⚠ <file>: 0 diagrams`                 | 0    |
+| Success            | `✓ <file>: <n> diagrams`               | 0    |
 
 7. CLI Specification
 
