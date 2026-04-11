@@ -1,12 +1,13 @@
 # Story MAAR-010: Setup Lefthook Pre-commit Formatting
 
-**Points:** 1  
-**Priority:** Should Have  
+**Points:** 1\
+**Priority:** Should Have\
 **Status:** COMPLETE
 
 ## Story
 
-As a developer, I want automatic code formatting before each commit so that code style is consistently enforced without manual intervention.
+As a developer, I want automatic code formatting before each commit so that code style is
+consistently enforced without manual intervention.
 
 ## Acceptance Criteria
 
