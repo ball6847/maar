@@ -492,6 +492,74 @@ Update Code ──┘
 
 ---
 
+### Story 7: Version Flag
+
+**ID:** MAAR-DENO-007\
+**Points:** 1\
+**Priority:** Should Have
+
+**Story:**\
+As a user, I want to check the current version of maar so that I can verify my installation.
+
+**Acceptance Criteria:**
+
+- [ ] `--version` flag prints version from deno.json
+- [ ] `-v` short flag also works
+- [ ] Version output format: `maar v1.0.1`
+- [ ] Exits with code 0 after printing version
+- [ ] Version check works without file arguments
+- [ ] No conflict with file path arguments
+- [ ] Update AGENTS.md: add version command to Common Tasks section
+- [ ] Update skills/maar/SKILL.md: add version command and upgrade troubleshooting
+
+**Technical Notes:**
+
+- Read version from deno.json at runtime using `import.meta` or import the deno.json
+- Check for `--version` or `-v` in `src/cli.ts` before file validation
+- Follow GNU standard for `--version` flag
+
+---
+
+## Story Map
+
+```
+Setup ────────┐
+Migrate APIs ─┼──▶ Renderer ──▶ Tests ──▶ Docs ──▶ Publish ──▶ Version
+Update Code ──┘
+```
+
+## Dependencies
+
+| Story         | Depends On                   |
+| ------------- | ---------------------------- |
+| MAAR-DENO-002 | MAAR-DENO-001                |
+| MAAR-DENO-003 | MAAR-DENO-001                |
+| MAAR-DENO-004 | MAAR-DENO-002, MAAR-DENO-003 |
+| MAAR-DENO-005 | MAAR-DENO-004                |
+| MAAR-DENO-006 | MAAR-DENO-005                |
+| MAAR-DENO-007 | MAAR-DENO-002                |
+
+## Sprint Burndown
+
+| Day | Planned        | Completed | Remaining |
+| --- | -------------- | --------- | --------- |
+| 1   | Stories 1-2    | -         | -         |
+| 2   | Stories 3-4    | -         | -         |
+| 3   | Stories 5-6    | -         | -         |
+| 4   | Story 7/Buffer | -         | -         |
+| 5   | Buffer/testing | -         | -         |
+
+## Definition of Done
+
+- [ ] All code migrated to Deno APIs
+- [ ] All tests passing with `deno test`
+- [ ] `deno publish --dry-run` passes
+- [ ] Manual testing confirms functionality preserved
+- [ ] Documentation updated
+- [ ] (Optional) Published to JSR
+
+---
+
 **Status:** 🚀 READY FOR DEVELOPMENT
 
 **Next Step:** Start with `/dev-story MAAR-DENO-001` or run all with orchestrator

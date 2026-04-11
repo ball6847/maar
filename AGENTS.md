@@ -238,6 +238,12 @@ Edit `docs/tech-spec.md` when making architectural decisions.
 deno task start docs/example.md
 ```
 
+### Check Version
+
+```bash
+deno run --allow-read maar.ts --version
+```
+
 ### Install from local (for testing)
 
 ```bash
