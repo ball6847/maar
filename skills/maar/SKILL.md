@@ -108,15 +108,21 @@ git commit -m "docs: add flow diagram"
 
 MAAR injects ASCII in this structure:
 
-```markdown
+````
 <!-- MAAR: diagrams/flow.mmd -->
 ```
-
-┌─────┐ │Start│ └─────┘ │ ▼ ┌──────┐ │Action│ └──────┘
-
+┌─────┐
+│Start│
+└─────┘
+  │
+  ▼
+┌──────┐
+│Action│
+└──────┘
 ```
+
 [View Flow](diagrams/flow.mmd)
-```
+````
 
 - `<!-- MAAR: ... -->` marker identifies existing blocks
 - Plain triple backticks (no language identifier)

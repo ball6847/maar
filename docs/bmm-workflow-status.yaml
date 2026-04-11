@@ -33,5 +33,7 @@ phases:
       - "docs/stories/MAAR-DENO-004.md - COMPLETE"
       - "docs/stories/MAAR-DENO-005.md - COMPLETE"
       - "docs/stories/MAAR-DENO-006.md - COMPLETE"
+      - "docs/stories/MAAR-009.md - COMPLETE"
+      - "docs/stories/MAAR-010.md - TODO"
 
-next_recommended: "Deno Migration COMPLETE! Commit changes and push to GitHub."
+next_recommended: "MAAR-009: Fix nested markdown codeblocks or MAAR-010: Setup husky pre-commit"

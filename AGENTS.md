@@ -246,6 +246,27 @@ deno install --allow-read --allow-write -n maar-local ./maar.ts
 
 ---
 
+## Documentation Standards
+
+### Nested Codeblocks
+
+When writing markdown examples that contain codeblocks:
+
+- Use 4+ backticks (`` ```` ``) for outer block when containing 3-backtick codeblocks
+- Alternative: use tilde fencing (`~~~`) for outer blocks
+- Never nest 3-backtick blocks inside 3-backtick blocks (breaks rendering)
+- `deno fmt` auto-converts `~~~` to `` ```` `` and preserves structure
+
+Example:
+
+````
+```
+inner codeblock
+```
+````
+
+---
+
 ## Constraints & Out of Scope
 
 **Explicitly NOT implemented** (per PRD):

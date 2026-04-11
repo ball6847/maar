@@ -159,17 +159,19 @@ Input:
 
 Output:
 
+````
 ```markdown
 # Architecture
 
 <!-- MAAR: diagrams/flow.mmd -->
 ```
-
-┌─────┐ │Start│ └─────┘
-
+┌─────┐
+│Start│
+└─────┘
 ```
 [View Flow](diagrams/flow.mmd)
 ```
+````
 
 9. Success Criteria
 

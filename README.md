@@ -49,7 +49,7 @@ deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 
 <!-- deno-fmt-ignore-start -->
 
-```
+````
 <!-- MAAR: path/to/diagram.mmd -->
 ```
 ┌─────┐
@@ -60,9 +60,10 @@ deno run --allow-read=./docs --allow-write=./docs jsr:@ball6847/maar docs/*.md
 ┌────────┐
 │Process │
 └────────┘
+```
 
 [View Flow](path/to/diagram.mmd)
-```
+````
 
 <!-- deno-fmt-ignore-end -->
 
