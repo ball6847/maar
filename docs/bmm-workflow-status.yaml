@@ -1,6 +1,6 @@
 project: "maar"
 level: 1
-updated_at: "2026-04-10"
+updated_at: "2026-04-11"
 
 phases:
   analysis:
@@ -37,4 +37,4 @@ phases:
       - "docs/stories/MAAR-010.md - COMPLETE"
       - "docs/stories/MAAR-BUG-001.md - COMPLETE"
 
-next_recommended: "All tasks complete. Ready to commit."
+next_recommended: "COMPLETE - v1.1.1 published to JSR and GitHub"
