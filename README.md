@@ -22,6 +22,12 @@ Built with **Deno** for secure, fast, native TypeScript execution. Distributed v
 deno install --allow-read --allow-write -n maar jsr:@ball6847/maar
 ```
 
+### Install as Agent Skill
+
+```bash
+npx skills add ball6847/maar
+```
+
 ### Run without installing
 
 ```bash
